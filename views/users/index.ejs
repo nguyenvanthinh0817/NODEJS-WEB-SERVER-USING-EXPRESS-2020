@@ -1,5 +1,10 @@
 <h1>Users list</h1>
 
+<form action="/users/search" method="GET" type="text">
+	<input type="text" name="q" value="<%= q%>">
+	<button>Seach</button>
+</form>
+
 <ul>
 	<% users.forEach((user)=>{
 		%><li><%= user.name%></li><%
