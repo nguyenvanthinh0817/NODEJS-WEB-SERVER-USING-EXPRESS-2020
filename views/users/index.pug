@@ -1,21 +1,27 @@
 extends ../layouts/common
 
 block content
-	h1 Users
+	h1
+		span.mr-3 Users
 
-	a(href="/users/create") New
+		a(href="/users/create", class="btn btn-primary") New
 
 	form(action="/users/search", method="GET", class="d-flex")
-		input(type='text', name='q', class="form-control")
+		input(type='text', name='q', class="form-control mr-3", value=values ? values.q : '')
 		button(class="btn btn-primary") Seach
 
-	ul
+	table.table
+		tr
+			th Name
+			th Phone
+			th Action
 
 		each user in users
-			li
-				span= user.name
-				span &nbsp
-				a(href="/users/" + user.id) View
+			tr
+				td= user.name
+				td= user.phone
+				td
+					a.btn.btn-light(href="/users/" + user.id) View
 	      		
 	  
 	    

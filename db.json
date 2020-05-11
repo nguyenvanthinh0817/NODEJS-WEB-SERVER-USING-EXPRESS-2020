@@ -6,11 +6,28 @@
     },
     {
       "name": "Thinh",
-      "id": "KlBgxD7pE"
+      "id": "KlBgxD7pE",
+      "email": "nguyenvanthinh@gmail.com",
+      "password": "123456"
     },
     {
       "name": "Chung",
       "id": "iar5wncvR"
+    },
+    {
+      "name": "Chien",
+      "phone": "123456",
+      "id": "xCNTYiw6N"
+    },
+    {
+      "name": "Khanhs",
+      "phone": "456789",
+      "id": "0C3XqN1zY"
+    },
+    {
+      "name": "thich 02",
+      "phone": "46879",
+      "id": "sganMBptI"
     }
   ]
 }

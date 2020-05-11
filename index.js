@@ -1,13 +1,14 @@
 var express = require('express');
 
+var cookieParser = require('cookie-parser');
 
 var bodyParser = require('body-parser');
 
-var userRoutes = require('./routes/user.route')
+var userRoutes = require('./routes/user.route');
+var authRoutes = require('./routes/auth.route');
 
-var db = require('./db');
-// Set some defaults (required if your JSON file is empty)
 
+var authMiddlewave = require('./middlewaves/auth.middlewave');
 
 var port = 3000;
 
@@ -18,17 +19,16 @@ app.set('views', './views');
 
 app.use(bodyParser.json()) // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+app.use(cookieParser());
 
 
 
-
-app.use('/users', userRoutes);
+app.use('/users', authMiddlewave.requireAuth, userRoutes);
+app.use('/auth', authRoutes);
 
 app.get('/', (req, res)=>{
 	res.render('index');
 });
-
-
 
 
 

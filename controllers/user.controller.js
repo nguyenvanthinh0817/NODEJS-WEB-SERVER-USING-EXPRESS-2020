@@ -13,10 +13,12 @@ module.exports = {
 		return user.name.toLowerCase().indexOf(q.toLowerCase()) !== -1;
 	});
 	res.render('users/index',{
-		users:matchdUsers
+		users:matchdUsers,
+		values: req.query
 	});
 	},
 	getCreate: (req, res)=>{
+		console.log(req.cookies)
 	res.render('users/create');
 	},
 	postCreate: (req, res)=>{
