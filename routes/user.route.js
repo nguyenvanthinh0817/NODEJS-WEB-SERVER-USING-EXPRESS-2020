@@ -21,10 +21,11 @@ router.post('/create',
 	controller.postCreate
 	);
 
+router.post('/update/:id',upload.single('avatar'), controller.postUpdate);
 
 router.get('/:id', controller.view);
 
 router.get('/remove/:id', controller.remove);
 router.get('/update/:id', controller.getUpdate);
-router.post('/update/:id', controller.postUpdate);
+
 module.exports = router;
