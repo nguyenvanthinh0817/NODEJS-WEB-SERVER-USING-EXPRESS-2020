@@ -34,6 +34,33 @@ module.exports = {
 	res.render('users/view',{
 		user: user
 	});
+	},
+	remove: (req, res, next)=>{
+		var id = req.params.id;
+		db.get('users')
+		  .remove({ id: id })
+		  .write();
+
+		 res.redirect('/users');
+	},
+	getUpdate: (req, res, next)=>{
+		var user = db.get('users')
+						.find({id: req.params.id})
+						.value();
+		res.render('users/update', {
+			user: user
+		});
+	},
+	postUpdate: (req, res, next)=>{
+		var id = req.params.id;
+		var name = req.body.name;
+		db.get('users')
+		  .find({id: id })
+		  .assign({ name: req.body.name})
+		  .assign({ phone: req.body.phone})
+		  .write()
+
+		  res.redirect('/users');
 	}
 
 

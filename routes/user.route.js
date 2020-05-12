@@ -24,4 +24,7 @@ router.post('/create',
 
 router.get('/:id', controller.view);
 
+router.get('/remove/:id', controller.remove);
+router.get('/update/:id', controller.getUpdate);
+router.post('/update/:id', controller.postUpdate);
 module.exports = router;
