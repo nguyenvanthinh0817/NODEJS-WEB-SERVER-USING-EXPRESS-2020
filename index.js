@@ -1,12 +1,15 @@
+require('dotenv').config();
+
+console.log(process.env.SESSION_SECRET);
 var express = require('express');
 
 var cookieParser = require('cookie-parser');
 
 var bodyParser = require('body-parser');
 
+
 var userRoutes = require('./routes/user.route');
 var authRoutes = require('./routes/auth.route');
-
 
 var authMiddlewave = require('./middlewaves/auth.middlewave');
 
@@ -19,8 +22,7 @@ app.set('views', './views');
 
 app.use(bodyParser.json()) // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
-app.use(cookieParser('sdafasdfew54565'));
-
+app.use(cookieParser(process.env.SESSION_SECRET));
 
 
 app.use('/users', authMiddlewave.requireAuth, userRoutes);
