@@ -10,8 +10,6 @@ module.exports.postLogin = function(req, res, next){
 	var email = req.body.email;
 	var password = req.body.password;
 	var user = db.get('users').find({email: email}).value();
-	console.log(user);
-	console.log(password);
 	if(!user){
 		res.render('auth/login', {
 			errors: [
@@ -32,7 +30,9 @@ module.exports.postLogin = function(req, res, next){
 		return;
 	}
 
-	res.cookie('userId', user.id);
+	res.cookie('userId', user.id,{
+		signed: true
+	});
 	res.redirect('/users');
 
 };
