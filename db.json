@@ -8,34 +8,10 @@
       "phone": "123456"
     },
     {
-      "name": "Trung",
-      "phone": "123456",
-      "id": "B0HbU1bip",
-      "avatar": "uploads\\fded72bd1d2cf9f21adb0f61a4721189"
-    },
-    {
-      "name": "Nam",
-      "phone": "123456",
-      "id": "Oj3S0Ikqk",
-      "avatar": "uploads\\dc22114e3fe72e269d97c7ffa0bc54d6"
-    },
-    {
-      "name": "Tom",
-      "phone": "123456",
-      "id": "9uB8pXJlH",
-      "avatar": "uploads\\2c81c8be8d423140b0eaff83e3f00223"
-    },
-    {
-      "name": "Jerry",
-      "phone": "236587",
-      "id": "_gHrobHM1",
-      "avatar": "uploads\\eee09c861280c7ac9b445f4c956b11ca"
-    },
-    {
-      "name": "Bac",
-      "phone": "456456",
-      "id": "-y5k-EwCz",
-      "avatar": "uploads\\a0621a477b2a00c6297d0334186699b1"
+      "name": "Dung",
+      "phone": "45465",
+      "id": "p5kfXS6jC",
+      "avatar": "uploads\\ef26d10490fca1823626063c40898710"
     }
   ],
   "products": [
@@ -761,6 +737,12 @@
       "cart": {
         "b19e4654-68e1-4f33-9b12-d6b7d29d7bf2": 2,
         "ef7fc43c-34b7-42fb-8aad-15465b036eb4": 1
+      }
+    },
+    {
+      "id": "twc7b79yv",
+      "cart": {
+        "b19e4654-68e1-4f33-9b12-d6b7d29d7bf2": 2
       }
     }
   ]

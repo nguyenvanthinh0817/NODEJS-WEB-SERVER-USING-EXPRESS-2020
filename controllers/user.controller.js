@@ -1,64 +1,74 @@
-var shortid = require('shortid');
-var db = require('../db');
-
+var User = require('../models/user.model');
 module.exports = {
-	index: function(req, res){
-	res.render('users/index',{
-		users: db.get('users').value()
+	index: async function(req, res){
+	// res.render('users/index',{
+	// 	users: db.get('users').value()
+	// 	});
+
+		var users = await User.find();
+		res.render('users/index', {
+			users: users
+		})
+
+	},
+	search: async (req, res)=>{
+		// var q = req.query.q;
+		// var matchdUsers = db.get('users').value().filter((user)=>{
+		// 	return user.name.toLowerCase().indexOf(q.toLowerCase()) !== -1;
+		// });
+		// res.render('users/index',{
+		// 	users:matchdUsers,
+		// 	values: req.query
+		// });
+
+		var q = req.query.q;
+		var matchdUsers = await User.find();
+		matchdUsers = matchdUsers.filter((user)=>{
+			return user.name.toLowerCase().indexOf(q.toLowerCase()) !== -1;
+		});
+		res.render('users/index',{
+			users:matchdUsers,
+			values: req.query
 		});
 	},
-	search: (req, res)=>{
-	var q = req.query.q;
-	var matchdUsers = db.get('users').value().filter((user)=>{
-		return user.name.toLowerCase().indexOf(q.toLowerCase()) !== -1;
-	});
-	res.render('users/index',{
-		users:matchdUsers,
-		values: req.query
-	});
+	getCreate: async (req, res)=>{
+	 res.render('users/create');
 	},
-	getCreate: (req, res)=>{
-		console.log(req.cookies)
-	res.render('users/create');
-	},
-	postCreate: (req, res)=>{
-	req.body.id = shortid.generate();
+	postCreate: async (req, res)=>{
 	req.body.avatar = req.file.path.split('\\').splice(1).join('\\');
-	db.get('users').push(req.body).write();
+
+	await User.create(req.body)
+
+
 	res.redirect('/users')
 	},
-	view: (req, res)=>{
+	view: async (req, res)=>{
 	var id = req.params.id;
 
-	var user = db.get('users').find({id: id}).value();
+	var user = await User.findById(id);
+
+
 	res.render('users/view',{
 		user: user
 	});
 	},
-	remove: (req, res, next)=>{
+	remove: async (req, res, next)=>{
 		var id = req.params.id;
-		db.get('users')
-		  .remove({ id: id })
-		  .write();
+		await User.findByIdAndDelete(id); 
 
 		 res.redirect('/users');
 	},
-	getUpdate: (req, res, next)=>{
-		var user = db.get('users')
-						.find({id: req.params.id})
-						.value();
+	getUpdate: async (req, res, next)=>{
+		var user = await User.findById(req.params.id)
 		res.render('users/update', {
 			user: user
 		});
 	},
-	postUpdate: (req, res, next)=>{
-		var id = req.params.id;
-		var name = req.body.name;
-		db.get('users')
-		  .find({id: id })
-		  .assign({ name: req.body.name})
-		  .assign({ phone: req.body.phone})
-		  .write()
+	postUpdate: async (req, res, next)=>{
+
+		await User.findByIdAndUpdate(req.params.id, req.body)
+
+
 
 		  res.redirect('/users');
 	}

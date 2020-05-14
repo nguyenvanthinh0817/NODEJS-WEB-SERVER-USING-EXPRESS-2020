@@ -1,5 +1,7 @@
-var db = require('../db');
-module.exports.addToCart = function(req, res, next){
+
+var Product = require('../models/product.model');
+var Sessions = require('../models/session.model');
+module.exports.addToCart = async function(req, res, next){
 	var productId = req.params.productId;
 	var sessionId = req.signedCookies.sessionId;
 
@@ -8,27 +10,26 @@ module.exports.addToCart = function(req, res, next){
 		return;
 	}
 
-	var count = db.get('sessions')
-		.find({id: sessionId})
-		.get('cart.' + productId, 0)
-		.value();
+	var session = await Sessions.findOne({sessionId: sessionId});
+	var count = session.cart[req.params.productId]
 
-	db.get('sessions')
-		.find({id: sessionId})
-		.set('cart.' + productId, count + 1)
-		.write();
+	if(!count){
+		count = 0;
+	}
+
+	session.cart[productId] = count + 1;
+
+	await Sessions.findByIdAndUpdate(session.id, session);
 	res.redirect('/products');
 };
 
-module.exports.index = function(req, res, next){
-	var carts = db.get('sessions')
-		.find({id: req.signedCookies.sessionId})
-		.value()
-		.cart
+module.exports.index = async function(req, res, next){
+	var session = await Sessions.findOne({sessionId: req.signedCookies.sessionId});
+	var carts = session.cart;
 	var products = [];
 	for(var key in carts){
 		
-		var item = db.get('products').find({id: key}).value();
+		var item = await Product.findById(key);
 		item.quantity = carts[key];
 		item.price = carts[key]*item.price
 		products.push(item);
